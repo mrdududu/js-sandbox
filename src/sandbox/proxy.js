@@ -1,8 +1,17 @@
 
-let target = {};
-let proxy = new Proxy(target, {}); // пустой handler
+let obj = {child1: { child2: "test" }};
 
-proxy.test = 5; // записываем в прокси (1)
+let proxy = new Proxy(obj, {
+  set(target, prop, val) {
+    console.log("set", {target, prop, val})
+    target[prop] = val;
+    return true
+  }
+});
 
-console.log('proxy.test', proxy.test)
-console.log('target.test', target.test)
+
+
+proxy.child1.child2 = 5; // записываем в прокси (1)
+
+console.log('proxy.child1.child2', proxy.child1.child2)
+// console.log('target.test', target.test)
