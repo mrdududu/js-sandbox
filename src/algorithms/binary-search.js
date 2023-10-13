@@ -1,17 +1,19 @@
-const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const arr = Array.from(Array(100000), (_,x) => x);
 // const arr = [0, 1]
 
 const binarySearch = (inArr, searchNum) => {
-  let li = 0
-  let ri = inArr.length - 1
-  // let count = ri - li + 1
+  let li = 0 // left index
+  let ri = inArr.length - 1 // right index
 
-  while (ri !== li) {
-    let mi = Math.floor(li + (ri - li) / 2)
+  while (li <= ri) {
+    let mi = Math.floor(li + (ri - li) / 2) // middle index
+    let miValue = inArr[mi] // middle index value
+
     console.log(li, mi, ri)
-    if (inArr[mi] <= searchNum) {
-      if (inArr[mi] === searchNum) return mi
-      li = mi
+    if (miValue === searchNum) {
+      return mi
+    } else if (miValue < searchNum) {
+      li = mi + 1
     } else {
       ri = mi - 1
     }
@@ -22,6 +24,6 @@ const binarySearch = (inArr, searchNum) => {
   return -1
 }
 
-const res = binarySearch(arr, 9)
+const res = binarySearch(arr, 67)
 
 console.log(res)
