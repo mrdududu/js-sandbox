@@ -23,4 +23,26 @@ function maxArea(arrHeight) {
   return max
 }
 
-console.log(maxArea(input1))
+function maxArea2(arrHeight) {
+  let left = 0
+  let right = arrHeight.length - 1
+  let max = 0
+
+  while (left < right) {
+    const minHeight = Math.min(arrHeight[left], arrHeight[right])
+    const width = right - left
+    const vol = minHeight * width
+
+    max = Math.max(max, vol)
+
+    if (arrHeight[left] < arrHeight[right]) {
+      left++
+    } else {
+      right--
+    }
+  }
+
+  return max
+}
+
+console.log(maxArea2(input1))
