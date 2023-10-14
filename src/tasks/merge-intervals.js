@@ -29,9 +29,9 @@ function merge(int1, int2) {
 // out [[1, 6], [8, 10], [15, 18]]
 
 const arr = [
-  [1, 20],
+  [1, 2],
   [2, 3],
-  [1, 3],
+  [4, 5],
   [1, 3],
   [2, 6],
   [8, 10],
@@ -40,57 +40,25 @@ const arr = [
 ]
 
 function mergeIntervals(arr) {
-  const inArr = [...arr]
-  const mergedArr = [inArr.pop()]
+  const inArr = [...arr].sort((a, b) => a[0] - b[0])
+  const resArr = [inArr.shift()]
 
-  while (inArr.length > 0) {
-    const pair = inArr.pop()
-    let merged = null
-    for (let i = 0; i < mergedArr.length; i++) {
-      merged = merge(mergedArr[i], pair)
-      console.log(i, mergedArr[i], pair, merged)
-
-      if (merged) {
-        mergedArr[i] = merged
-        break
-      }
-    }
-
-    if (merged === null) {
-      mergedArr.push(pair)
-    }
-  }
-
-  return mergedArr
-}
-
-function mergeIntervals2(arr) {
-  const inArr = [...arr]
-
-  let someMerged = false
-
-  while (!someMerged) {
-    someMerged = false
+  while (0 < inArr.length) {
     const item = inArr.shift()
-    console.log('shift', item)
+    const lastIndex = resArr.length - 1
+    // console.log(inArr, resArr)
+    const merged = merge(resArr[lastIndex], item)
 
-    for (let i = 0; i < inArr.length; i++) {
-      const mergedItem = merge(inArr[i], item)
-      console.log(inArr[i], item, mergedItem)
-      if (mergedItem) {
-        inArr[i] = mergedItem
-        someMerged = true
-      }
-    }
-
-    if (!someMerged) {
-      inArr.push(item)
+    if (merged) {
+      resArr[lastIndex] = merged
+    } else {
+      resArr.push(item)
     }
   }
 
-  return inArr
+  return resArr
 }
 
-const res = mergeIntervals2(arr)
+const res = mergeIntervals(arr)
 
 console.log('Merged', { arr, res })
