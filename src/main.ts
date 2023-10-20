@@ -5,5 +5,6 @@
 // import './tasks/merge-intervals.js'
 // import './tasks/max-area.js'
 // import './algorithms/breadth-first-search.js'
-import './tasks/validate-brackets.js'
+// import './tasks/validate-brackets.js'
 // import './tasks/stock-max-profit.js'
+import './tasks/compound-interest.js'
