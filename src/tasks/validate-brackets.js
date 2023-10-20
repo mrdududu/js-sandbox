@@ -3,21 +3,39 @@ const testString3 = '[([{}])(){[[]]}'
 const testString2 = '[{([]{}())[([]])}]'
 
 function validateBrackets(inStr) {
+  const brackets = {
+    '{': '}',
+    '[': ']',
+    '(': ')'
+  }
+
   let p = 0
   const steak = []
   while (p < inStr.length) {
     let char = inStr[p]
 
-    if (char === '[' || char === '(' || char === '{') {
+    if (Object.keys(brackets).some(i => i === char)){
       steak.push(char)
-    } else {
+    }else {
       const last = steak[steak.length - 1]
-      if ((char === ']' && last === '[') || (char === ')' && last === '(') || (char === '}' && last === '{')) {
+      if (brackets[last] === char) {
         steak.pop()
-      } else {
+      }
+      else {
         return false
       }
     }
+
+    // if (char === '[' || char === '(' || char === '{') {
+    //   steak.push(char)
+    // } else {
+    //   const last = steak[steak.length - 1]
+    //   if ((char === ']' && last === '[') || (char === ')' && last === '(') || (char === '}' && last === '{')) {
+    //     steak.pop()
+    //   } else {
+    //     return false
+    //   }
+    // }
 
     console.log({ steak: [...steak], char })
     p++
@@ -25,6 +43,6 @@ function validateBrackets(inStr) {
   return steak.length === 0
 }
 
-const res = validateBrackets(testString3)
+const res = validateBrackets(testString)
 
 console.log(res)
