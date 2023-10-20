@@ -7,4 +7,5 @@
 // import './algorithms/breadth-first-search.js'
 // import './tasks/validate-brackets.js'
 // import './tasks/stock-max-profit.js'
-import './tasks/compound-interest.js'
+// import './tasks/compound-interest.js'
+import './tasks/bigger-number.js'
