@@ -21,11 +21,42 @@ from roman:
  */
 
 class RomanNumerals {
+  static roman = {
+    M: 1000,
+    D: 500,
+    C: 100,
+    L: 50,
+    X: 10,
+    V: 5,
+    I: 1
+  }
+
   static toRoman(num) {
-    return 'IV';
+    return 'IV'
   }
 
   static fromRoman(str) {
-    return 4;
+    let sum = 0
+
+    for (let i = str.length - 1; i >= 0; i--) {
+      const nextRoman = str[i - 1]
+      const curRoman = str[i]
+
+      let nextVal = this.roman[nextRoman]
+      let curVal = this.roman[curRoman]
+      sum += curVal
+
+      if (nextVal < curVal) {
+        sum -= nextVal
+        i--
+      }
+
+      console.log(str[i], curVal, nextVal)
+    }
+
+    return sum
   }
 }
+
+const res = RomanNumerals.fromRoman('XXVII')
+console.log('res', res)
