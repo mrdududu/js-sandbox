@@ -21,6 +21,13 @@ from roman:
  */
 
 class RomanNumerals {
+  static romanArr = [
+    { l: 'M', h: 'V', n: 1000 },
+    { l: 'C', h: 'D', n: 100 },
+    { l: 'X', h: 'L', n: 10 },
+    { l: 'I', h: 'V', n: 1 }
+  ]
+
   static roman = {
     M: 1000,
     D: 500,
@@ -32,7 +39,33 @@ class RomanNumerals {
   }
 
   static toRoman(num) {
-    return 'IV'
+    const repeatChar = (char, count) => {
+      let str = ''
+      for (; count > 0; count--) {
+        str += char
+      }
+
+      return str
+    }
+
+    let res = ''
+    for (let i = 0; i < this.romanArr.length; i++) {
+      const int = Math.floor(num / this.romanArr[i].n)
+      console.log(i, this.romanArr[i].n, int)
+      if (0 < int) {
+        if (int === 9) {
+          res += this.romanArr[i].l + this.romanArr[i - 1].l
+        } else if (int === 4) {
+          res += this.romanArr[i].l + this.romanArr[i].h
+        } else if (int > 4) {
+          res += this.romanArr[i].h + repeatChar(this.romanArr[i].l, int - 5)
+        } else {
+          res += repeatChar(this.romanArr[i].l, int)
+        }
+        num = num % this.romanArr[i].n //num - int * this.romanArr[i].n
+      }
+    }
+    return res
   }
 
   static fromRoman(str) {
@@ -58,5 +91,7 @@ class RomanNumerals {
   }
 }
 
-const res = RomanNumerals.fromRoman('XXVII')
-console.log('res', res)
+// const res = RomanNumerals.fromRoman('XXVII')
+const num = 124
+const res = RomanNumerals.toRoman(num)
+console.log('res', num, res)
