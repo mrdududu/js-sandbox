@@ -34,3 +34,23 @@ function countChange(money, coins) {
 countChange(4, [1, 2]) // => 3
 countChange(10, [5, 2, 3]) // => 4
 countChange(11, [5, 7]) //  => 0
+
+function countWaysToMakeChange(amount, denominations) {
+  // Create an array to store the number of ways to make change for each amount from 0 to 'amount'.
+  const ways = new Array(amount + 1).fill(0)
+  ways[0] = 1 // There's one way to make change for 0.
+
+  for (const coin of denominations) {
+    for (let i = coin; i <= amount; i++) {
+      ways[i] += ways[i - coin]
+    }
+  }
+
+  return ways[amount]
+}
+
+// Example usage:
+const coinDenominations = [1, 2]
+const amount = 4
+const numberOfWays = countWaysToMakeChange(amount, coinDenominations)
+console.log(`Number of ways to make change for ${amount}: ${numberOfWays}`)
